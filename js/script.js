@@ -29,8 +29,7 @@ I walk a lonely road
 The only one that I have ever known
 Em             G
 Don't know where it goes
-        D                A
-But it's home to me and I walk alone`
+        D                ABut it's home to me and I walk alone`
   },
   {
     title: "House of the Rising Sun",
@@ -55,8 +54,7 @@ And God, I know I'm one`
     title: "Kryptonite",
     artist: "3 Doors Down",
     chords: [
-      { name: "Bm", fingering: "x24432" },
-      { name: "G", fingering: "320003" },
+      { name: "Bm", fingering: "x24432" },     { name: "G", fingering: "320003" },
       { name: "D", fingering: "xx0232" },
       { name: "A", fingering: "x02220" }
     ],
@@ -82,8 +80,7 @@ In the sands of time`
     lyrics: `Em7        G           Dsus4      A7sus4
 Today is gonna be the day that they're gonna throw it back to you
 Em7        G           Dsus4      A7sus4
-By now you should've somehow realized what you gotta do
-Em7        G           Dsus4      A7sus4
+By now you should've somehow realized what you gotta doEm7        G           Dsus4      A7sus4
 I don't believe that anybody feels the way I do
       Cadd9  Dsus4  A7sus4
 About you now`
@@ -96,7 +93,10 @@ function showSongDetails(song) {
     <h2>${song.title}</h2>
     <h3>${song.artist}</h3>
     <div id="chords" style="margin-bottom: 1.5em;"></div>
-    <pre class="lyrics">${song.lyrics}</pre>
+    <div style="position:relative;">
+      <button id="copyLyricsBtn" style="position:absolute; right:0; top:0; z-index:1;">Copy Code</button>
+      <pre class="lyrics" id="lyricsBlock">${song.lyrics}</pre>
+    </div>
   `;
 
   const chordsDiv = document.getElementById("chords");
@@ -109,7 +109,22 @@ function showSongDetails(song) {
     `;
     chordsDiv.appendChild(chordDiv);
   });
+
+  // Copy button functionality
+  document.getElementById("copyLyricsBtn").onclick = function() {
+    const lyrics = document.getElementById("lyricsBlock").innerText;
+    navigator.clipboard.writeText(lyrics)
+      .then(() => {
+        this.textContent = "Copied!";
+        setTimeout(() => this.textContent = "Copy Code", 1200);
+      })
+      .catch(() => {
+        this.textContent = "Failed";
+        setTimeout(() => this.textContent = "Copy Code", 1200);
+      });
+  };
 }
+
 function formatFingering(fingering) {
   // Example: "x32010" → "x 3 2 0 1 0"
   return fingering.split("").join(" ");
@@ -131,9 +146,6 @@ function renderSongs(filter = "") {
   });
 }
 
-// Render song details with chord diagrams
- 
-
 // Search functionality
 document.getElementById("searchBar").addEventListener("input", e => {
   renderSongs(e.target.value.toLowerCase());
@@ -143,3 +155,67 @@ document.getElementById("searchBar").addEventListener("input", e => {
 renderSongs();
 
 const BACKEND_URL = 'https://musicone-sezf.onrender.com';
+
+// Replace with your actual Render backend URL!
+const BACKEND_URL = ' https://musicone-sezf.onrender.com';
+
+// Smooth scroll to upload section
+document.getElementById('goToUpload').onclick = function() {
+  document.getElementById('record-section').scrollIntoView({ behavior: 'smooth' });
+};
+
+// Function to fetch and display uploaded songs/videos
+function loadSongs() {
+  fetch(`${BACKEND_URL}/songs`)
+    .then(res => res.json())
+    .then(songs => {
+      const songList = document.getElementById('songList');
+      songList.innerHTML = '';
+      songs.forEach(song => {
+        const li = document.createElement('li');
+        const filename = song.filename.toLowerCase();
+        let mediaTag = '';
+        if (filename.endsWith('.mp3') || filename.endsWith('.wav') || filename.endsWith('.ogg')) {
+          mediaTag = `<audio controls src="${BACKEND_URL}/uploads/${song.filename}"></audio>`;
+        } else if (filename.endsWith('.mp4') || filename.endsWith('.webm') || filename.endsWith('.mov')) {
+          mediaTag = `<video controls width="320" src="${BACKEND_URL}/uploads/${song.filename}"></video>`;
+        } else {
+          mediaTag = `<a href="${BACKEND_URL}/uploads/${song.filename}" target="_blank">Download</a>`;
+        }
+        li.innerHTML = `
+          <strong>${song.title || 'Untitled'}</strong><br>
+          ${mediaTag}
+        `;
+        songList.appendChild(li);
+      });
+    })
+    .catch(err => {
+      document.getElementById('songList').innerHTML = '<li>Error loading songs/videos.</li>';
+    });
+}
+
+// Handle upload form submission
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  document.getElementById('uploadStatus').textContent = 'Uploading...';
+  fetch(`${BACKEND_URL}/upload`, {
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('uploadStatus').textContent = 'Upload successful!';
+    loadSongs(); // Refresh the list
+    this.reset();
+    setTimeout(() => {
+      document.getElementById('uploadStatus').textContent = '';
+    }, 2000);
+  })
+  .catch(() => {
+    document.getElementById('uploadStatus').textContent = 'Upload failed. Please try again.';
+  });
+});
+
+// Load songs/videos on page load
+window.onload = loadSongs;
