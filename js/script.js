@@ -38,17 +38,16 @@ function renderSongs(filter = "") {
     song.title.toLowerCase().includes(filter) ||
     song.artist.toLowerCase().includes(filter)
   );
-  filteredSongs.forEach((song, index) => {
+  filteredSongs.forEach((song) => {
     const li = document.createElement("li");
     li.className = "song-item";
     li.textContent = `${song.title} — ${song.artist}`;
-    li.addEventListener("click", () => showSongDetails(index));
+    li.addEventListener("click", () => showSongDetails(song));
     songList.appendChild(li);
   });
 }
 
-function showSongDetails(index) {
-  const song = songs[index];
+function showSongDetails(song) {
   const details = document.getElementById("songDetails");
   details.innerHTML = `
     <h2>${song.title}</h2>
@@ -57,6 +56,7 @@ function showSongDetails(index) {
     <p>${song.lyrics}</p>
   `;
 }
+
 
 document.getElementById("searchBar").addEventListener("input", function() {
   renderSongs(this.value.toLowerCase());
