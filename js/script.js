@@ -141,3 +141,5 @@ document.getElementById("searchBar").addEventListener("input", e => {
 
 // Initial render
 renderSongs();
+
+const BACKEND_URL = 'https://musicone-sezf.onrender.com';
