@@ -32,14 +32,28 @@ header h1 {
   letter-spacing: 2px;
 }
 
+/* Layout for main content and sidebar */
+.main-flex {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2em;
+}
+
 .container {
   max-width: 600px;
-  margin: 2.5em auto;
+  flex: 1 1 0;
+  margin: 2.5em 0;
   background: var(--white);
   padding: 2.5em 2em;
   border-radius: 18px;
   box-shadow: var(--shadow);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #searchBar {
@@ -59,24 +73,22 @@ header h1 {
   background: #fffbe6;
 }
 
-.song-list {
+#songList {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 2em 0;
+  width: 100%;
 }
 
 .song-item {
-  background: #f1f5ff;
-  color: var(--header-dark);
-  padding: 1em 1.2em;
-  margin-bottom: 0.75em;
-  border-radius: 10px;
-  border-left: 6px solid var(--primary-blue);
+  padding: 0.7em 1em;
+  background: #fff;
+  margin-bottom: 0.7em;
+  border-radius: 6px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
-  transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
-  font-weight: 500;
-  position: relative;
+  transition: background 0.2s;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
 }
 
 .song-item:hover, .song-item:focus {
@@ -95,6 +107,7 @@ header h1 {
   box-shadow: 0 2px 12px rgba(37, 99, 235, 0.07);
   border-left: 6px solid var(--accent-yellow);
   animation: fadeIn 0.5s;
+  width: 100%;
 }
 
 .song-details h2 {
@@ -119,18 +132,45 @@ header h1 {
   to   { opacity: 1; transform: translateY(0);}
 }
 
-/* Responsive for mobile */
-@media (max-width: 700px) {
-  .container {
-    padding: 1.2em 0.5em;
-  }
-  header {
-    padding: 1.2em 0.5em 0.7em 0.5em;
-  }
-  header h1 {
-    font-size: 2em;
-  }
+/* Sidebar for tools */
+#tools-section {
+  width: 240px;
+  min-width: 180px;
+  background: var(--white);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1.2em 0.7em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.5em;
 }
+
+#tools-section h2, #tools-section h3 {
+  text-align: center;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+#tools-section iframe {
+  width: 180px;
+  height: 260px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 0.7em;
+  background: #fafafa;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+}
+
+#tools-section p {
+  font-size: 0.85em;
+  color: #888;
+  text-align: center;
+}
+
+/* Chord display styles */
 .chord-diagram {
   display: inline-block;
   margin-right: 1.5em;
@@ -160,4 +200,32 @@ header h1 {
   font-size: 1.1em;
   line-height: 1.5;
   margin-top: 1em;
+}
+
+/* Responsive for mobile */
+@media (max-width: 900px) {
+  .main-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+  #tools-section {
+    margin-top: 1.5em;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2em;
+  }
+  #tools-section div {
+    margin-bottom: 1em;
+  }
+  .container {
+    margin: 1.2em 0;
+    padding: 1.2em 0.5em;
+  }
+  header {
+    padding: 1.2em 0.5em 0.7em 0.5em;
+  }
+  header h1 {
+    font-size: 2em;
+  }
 }
