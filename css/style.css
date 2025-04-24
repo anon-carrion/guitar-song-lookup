@@ -131,3 +131,33 @@ header h1 {
     font-size: 2em;
   }
 }
+.chord-diagram {
+  display: inline-block;
+  margin-right: 1.5em;
+  margin-bottom: 1em;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chord-name {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 0.3em;
+}
+
+.chord-fingering {
+  font-family: monospace;
+  background-color: #f0f0f0;
+  padding: 0.3em 0.6em;
+  border-radius: 6px;
+  user-select: text;
+  white-space: nowrap;
+  font-size: 1em;
+}
+
+.lyrics {
+  white-space: pre-line;
+  font-size: 1.1em;
+  line-height: 1.5;
+  margin-top: 1em;
+}

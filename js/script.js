@@ -90,6 +90,31 @@ About you now`
   }
 ];
 
+function showSongDetails(song) {
+  const details = document.getElementById("songDetails");
+  details.innerHTML = `
+    <h2>${song.title}</h2>
+    <h3>${song.artist}</h3>
+    <div id="chords" style="margin-bottom: 1.5em;"></div>
+    <pre class="lyrics">${song.lyrics}</pre>
+  `;
+
+  const chordsDiv = document.getElementById("chords");
+  song.chords.forEach(chord => {
+    const chordDiv = document.createElement("div");
+    chordDiv.className = "chord-diagram";
+    chordDiv.innerHTML = `
+      <div class="chord-name">${chord.name}</div>
+      <pre class="chord-fingering">${formatFingering(chord.fingering)}</pre>
+    `;
+    chordsDiv.appendChild(chordDiv);
+  });
+}
+function formatFingering(fingering) {
+  // Example: "x32010" → "x 3 2 0 1 0"
+  return fingering.split("").join(" ");
+}
+
 // Render song list
 function renderSongs(filter = "") {
   const songList = document.getElementById("songList");
@@ -107,27 +132,7 @@ function renderSongs(filter = "") {
 }
 
 // Render song details with chord diagrams
-function showSongDetails(song) {
-  const details = document.getElementById("songDetails");
-  details.innerHTML = `
-    <h2>${song.title}</h2>
-    <h3>${song.artist}</h3>
-    <div id="chords"></div>
-    <div class="lyrics">${song.lyrics}</div>
-  `;
-  // Render chord diagrams
-  const chordsDiv = document.getElementById("chords");
-  song.chords.forEach(chord => {
-    const chordDiv = document.createElement("div");
-    chordDiv.className = "chord-diagram";
-    // Use a unique id for each chord diagram (in case of repeats)
-    const uniqueId = `chord-${song.title.replace(/\s/g, '')}-${chord.name}`;
-    chordDiv.innerHTML = `<div class="chord-name">${chord.name}</div><div id="${uniqueId}"></div>`;
-    chordsDiv.appendChild(chordDiv);
-    // Draw diagram using VexChords
-    new Vexchords.ChordBox(`#${uniqueId}`, { width: 80, height: 120 }).draw({ chord: chord.fingering });
-  });
-}
+ 
 
 // Search functionality
 document.getElementById("searchBar").addEventListener("input", e => {
