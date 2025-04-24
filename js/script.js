@@ -31,7 +31,6 @@ function debounce(func, delay) {
 
 // Format chord fingering
 function formatFingering(fingering) {
-  // Example: "x32010" → "x 3 2 0 1 0"
   return fingering.split("").join(" ");
 }
 
@@ -134,5 +133,4 @@ document.getElementById('goToUpload').onclick = function () {
 
 // Initial render
 renderSongs();
-  
 
