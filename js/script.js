@@ -138,8 +138,7 @@ function renderSongs(filter = "") {
     song.title.toLowerCase().includes(filter) ||
     song.artist.toLowerCase().includes(filter)
   );
-  filtered.forEach(song => {
-    const li = document.createElement("li");
+  filtered.forEach(song => {    const li = document.createElement("li");
     li.textContent = `${song.title} — ${song.artist}`;
     li.onclick = () => showSongDetails(song);
     songList.appendChild(li);
@@ -156,22 +155,24 @@ renderSongs();
 
 const BACKEND_URL = 'https://musicone-sezf.onrender.com';
 
-// Replace with your actual Render backend URL!
-const BACKEND_URL = ' https://musicone-sezf.onrender.com';
+// --- Existing search functionality ---
+// Your original code to handle search bar input, fetch songs, display details, etc.
+
+// --- Upload & Display functionality ---
 
 // Smooth scroll to upload section
-document.getElementById('goToUpload').onclick = function() {
+document.getElementById('goToUpload').onclick = function () {
   document.getElementById('record-section').scrollIntoView({ behavior: 'smooth' });
 };
 
-// Function to fetch and display uploaded songs/videos
+// Load uploaded songs/videos and display them
 function loadSongs() {
   fetch(`${BACKEND_URL}/songs`)
-    .then(res => res.json())
-    .then(songs => {
+    .then((res) => res.json())
+    .then((songs) => {
       const songList = document.getElementById('songList');
       songList.innerHTML = '';
-      songs.forEach(song => {
+      songs.forEach((song) => {
         const li = document.createElement('li');
         const filename = song.filename.toLowerCase();
         let mediaTag = '';
@@ -182,40 +183,41 @@ function loadSongs() {
         } else {
           mediaTag = `<a href="${BACKEND_URL}/uploads/${song.filename}" target="_blank">Download</a>`;
         }
-        li.innerHTML = `
-          <strong>${song.title || 'Untitled'}</strong><br>
-          ${mediaTag}
-        `;
+        li.innerHTML = `<strong>${song.title || 'Untitled'}</strong><br>${mediaTag}`;
         songList.appendChild(li);
       });
     })
-    .catch(err => {
+    .catch(() => {
       document.getElementById('songList').innerHTML = '<li>Error loading songs/videos.</li>';
     });
 }
 
-// Handle upload form submission
-document.getElementById('uploadForm').addEventListener('submit', function(e) {
+// Upload form handler
+document.getElementById('uploadForm').addEventListener('submit', function (e) {
   e.preventDefault();
   const formData = new FormData(this);
   document.getElementById('uploadStatus').textContent = 'Uploading...';
   fetch(`${BACKEND_URL}/upload`, {
     method: 'POST',
-    body: formData
+    body: formData,
   })
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById('uploadStatus').textContent = 'Upload successful!';
-    loadSongs(); // Refresh the list
-    this.reset();
-    setTimeout(() => {
-      document.getElementById('uploadStatus').textContent = '';
-    }, 2000);
-  })
-  .catch(() => {
-    document.getElementById('uploadStatus').textContent = 'Upload failed. Please try again.';
-  });
+    .then((res) => res.json())
+    .then(() => {
+      document.getElementById('uploadStatus').textContent = 'Upload successful!';
+      loadSongs();
+      this.reset();
+      setTimeout(() => {
+        document.getElementById('uploadStatus').textContent = '';
+      }, 2000);
+    })
+    .catch(() => {
+      document.getElementById('uploadStatus').textContent = 'Upload failed. Please try again.';
+    });
 });
 
-// Load songs/videos on page load
-window.onload = loadSongs;
+// Load songs on page load
+window.onload = () => {
+  // Call your original init functions if any
+  loadSongs();
+};
+
