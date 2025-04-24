@@ -187,37 +187,6 @@ function loadSongs() {
         songList.appendChild(li);
       });
     })
-    .catch(() => {
-      document.getElementById('songList').innerHTML = '<li>Error loading songs/videos.</li>';
-    });
-}
 
-// Upload form handler
-document.getElementById('uploadForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  const formData = new FormData(this);
-  document.getElementById('uploadStatus').textContent = 'Uploading...';
-  fetch(`${BACKEND_URL}/upload`, {
-    method: 'POST',
-    body: formData,
-  })
-    .then((res) => res.json())
-    .then(() => {
-      document.getElementById('uploadStatus').textContent = 'Upload successful!';
-      loadSongs();
-      this.reset();
-      setTimeout(() => {
-        document.getElementById('uploadStatus').textContent = '';
-      }, 2000);
-    })
-    .catch(() => {
-      document.getElementById('uploadStatus').textContent = 'Upload failed. Please try again.';
-    });
-});
-
-// Load songs on page load
-window.onload = () => {
-  // Call your original init functions if any
-  loadSongs();
-};
+  
 
