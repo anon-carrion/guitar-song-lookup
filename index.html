@@ -1,20 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MusicOne</title>
+  <meta charset="UTF-8">
+  <title>Guitar Song Lookup</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <h1>MusicOne</h1>
-  </header>
-  <div class="container">
-    <input id="searchBar" type="text" placeholder="Search for a song or artist..." />
-    <ul id="songList" class="song-list"></ul>
-    <div id="songDetails" class="song-details"></div>
+  <h1>Guitar Song Lookup</h1>
+
+  <input type="text" id="searchBar" placeholder="Search for a song or artist..." />
+
+  <ul id="songList"></ul>
+
+  <div id="songDetails"></div>
+
+  <!-- Tuner and Metronome Section -->
+  <hr>
+  <h2>Guitar Tools</h2>
+  <div id="tools-section" style="display: flex; gap: 2em; flex-wrap: wrap; margin-top: 2em;">
+    <!-- Tuner Widget -->
+    <div>
+      <h3>Tuner</h3>
+      <iframe 
+        src="https://guitarapp.com/tuner.html?embed=true&instrument=guitar&theme=light" 
+        title="Online Tuner" 
+        style="width: 360px; height: 520px; border: none; border-radius: 4px;">
+      </iframe>
+      <p style="font-size: 0.9em; color: #888;">Tuner provided by <a href="https://www.guitarapp.com/tuner.html" target="_blank" rel="noopener">GuitarApp</a></p>
+    </div>
+
+    <!-- Metronome Widget -->
+    <div>
+      <h3>Metronome</h3>
+      <iframe 
+        src="https://guitarapp.com/metronome.html?embed=true&tempo=120&timeSignature=4&pattern=1&theme=light" 
+        title="Online Metronome" 
+        style="width: 360px; height: 520px; border: none; border-radius: 4px;">
+      </iframe>
+      <p style="font-size: 0.9em; color: #888;">Metronome provided by <a href="https://www.guitarapp.com/metronome.html" target="_blank" rel="noopener">GuitarApp</a></p>
+    </div>
   </div>
+
   <script src="js/script.js"></script>
 </body>
 </html>
