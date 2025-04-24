@@ -1,20 +1,36 @@
-// Song data array
 const songs = [
   {
     title: "Let It Be",
     artist: "The Beatles",
     chords: "C G Am F",
-    lyrics: "When I find myself in times of trouble, Mother Mary comes to me..."
+    lyrics: "When I find myself in times of trouble, Mother Mary comes to me speaking words of wisdom, let it be Let it be, Let it be, Let it be, Oh, let it be, there will be an answer let it be..."
   },
   {
     title: "Wonderwall",
     artist: "Oasis",
     chords: "Em7 G Dsus4 A7sus4",
     lyrics: "Today is gonna be the day that they're gonna throw it back to you..."
+  },
+  {
+    title: "House of the Rising Sun",
+    artist: "The Animals",
+    chords: "Am C D F Am E Am E",
+    lyrics: "There is a house in New Orleans they call the Rising Sun..."
+  },
+  {
+    title: "Kryptonite",
+    artist: "3 Doors Down",
+    chords: "Bm G Asus2",
+    lyrics: "I took a walk around the world to ease my troubled mind..."
+  },
+  {
+    title: "Boulevard of Broken Dreams",
+    artist: "Green Day",
+    chords: "Em G D A C B7",
+    lyrics: "I walk a lonely road, the only one that I have ever known..."
   }
 ];
 
-// Render the song list
 function renderSongs(filter = "") {
   const songList = document.getElementById("songList");
   songList.innerHTML = "";
@@ -31,7 +47,6 @@ function renderSongs(filter = "") {
   });
 }
 
-// Show song details
 function showSongDetails(index) {
   const song = songs[index];
   const details = document.getElementById("songDetails");
@@ -43,11 +58,8 @@ function showSongDetails(index) {
   `;
 }
 
-// Search functionality
 document.getElementById("searchBar").addEventListener("input", function() {
   renderSongs(this.value.toLowerCase());
 });
 
-// Initial render
 renderSongs();
-
