@@ -2,18 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Guitar Song Lookup</title>
+  <title>MusicOne</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header>
-    <h1>Guitar Song Lookup</h1>
+    <h1>MusicOne</h1>
   </header>
-
-  <!-- Upload Your Music Button -->
-  <button id="goToUpload" style="margin: 2em auto; display: block; padding: 1em 2em; font-size: 1.2em; background: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer;">
-    🎵 Upload Your Music
-  </button>
 
   <div class="main-flex">
     <div class="container">
@@ -29,31 +24,14 @@
       <div>
         <h3>Tuner</h3>
         <iframe src="https://guitarapp.com/tuner.html?embed=true&instrument=guitar&theme=light" title="Online Tuner"></iframe>
-        <p>Tuner provided by <a href="https://www.guitarapp.com/tuner.html" target="_blank">GuitarApp</a></p>
       </div>
       <div>
         <h3>Metronome</h3>
         <iframe src="https://guitarapp.com/metronome.html?embed=true&tempo=120&timeSignature=4" title="Online Metronome"></iframe>
-        <p>Metronome provided by <a href="https://www.guitarapp.com/metronome.html" target="_blank">GuitarApp</a></p>
       </div>
     </div>
   </div>
-
-  <!-- Upload/Record Section -->
-  <section id="record-section" class="container" style="margin-top: 2em;">
-    <h2>Upload or Record Your Music or Video Below</h2>
-    <form id="uploadForm" enctype="multipart/form-data">
-      <input type="file" id="audioFile" name="song" accept="audio/*,video/*" />
-      <input type="text" id="songTitle" name="title" placeholder="Song or Video Title" />
-      <button type="submit">Upload</button>
-    </form>
-    <div id="uploadStatus"></div>
-  </section>
-
-  <script src="js/script.js"></script>
-  <script>
-    document.getElementById('goToUpload').onclick = function () {
-      document.getElementById('record-section').scrollIntoView({ behavior: 'smooth' });
+  
     };
   </script>
 </body>
