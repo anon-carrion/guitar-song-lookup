@@ -1,9 +1,4 @@
-// Constants
-const BACKEND_URL = 'https://musicone-sezf.onrender.com';
 
-// Song data with chord fingerings
-const songs = [
-  {
     title: "Let It Be",
     artist: "The Beatles",
     chords: [
